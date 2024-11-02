@@ -17,58 +17,80 @@
             overflow-x: hidden;
         }
 
-        /* Splash Screen */
-        #splash-screen {
+        /* Splash screen */
+        #splash {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background: linear-gradient(to right, #ff7e5f, #feb47b);
             display: flex;
-            align-items: center;
-            justify-content: center;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             z-index: 10;
-            opacity: 1;
-            transition: opacity 1s ease;
+            transition: opacity 0.5s ease;
         }
 
-        #splash-text {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3em;
-            color: #fff;
-            animation: fadeIn 2s ease;
+        /* Tulisan Pembuka */
+        .intro-text {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-in-out;
         }
 
-        #splash-heart {
-            font-size: 4em;
-            color: #fff;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Tombol Hati */
+        .heart-button {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
             animation: pulse 1.5s infinite;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            margin: 0 auto;
+            background: none; /* Menghilangkan background */
+            border: none; /* Menghilangkan border */
+            outline: none; /* Menghilangkan outline */
+            margin-top: 20px;
+        }
+
+        .heart-button:hover {
+            transform: scale(1.1);
+        }
+
+        .heart-button:active {
+            transform: scale(1.2);
+            opacity: 0.8;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
 
-        /* Halaman utama */
-        #main-content {
+        /* Konten utama */
+        .content {
             display: none;
-            padding-bottom: 60px;
-            animation: fadeIn 2s forwards;
+            padding-top: 20px;
+            transition: opacity 0.5s ease;
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 3em;
             margin: 20px 0;
-            animation: fadeIn 2s;
         }
 
         .message {
             font-size: 1.3em;
             margin: 20px;
-            animation: fadeIn 3s;
             line-height: 1.5;
         }
 
@@ -86,19 +108,12 @@
             transform: scale(1.05);
         }
 
-        .youtube-embed {
-            margin: 20px 0;
-        }
-
         /* Footer */
         footer {
             background-color: rgba(0, 0, 0, 0.7);
             color: #fff;
             text-align: center;
             padding: 10px 20px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
             font-size: 0.9em;
         }
 
@@ -111,11 +126,6 @@
             text-decoration: underline;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         @media (max-width: 600px) {
             h1 {
                 font-size: 2em;
@@ -123,19 +133,27 @@
             .message {
                 font-size: 1.2em;
             }
+            .intro-text {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- Splash Screen -->
-    <div id="splash-screen">
-        <div id="splash-text">Selamat datang di Cinta Kami</div>
-        <div id="splash-heart">❤️</div>
+    <div id="splash">
+        <div class="intro-text">SELAMAT DATANG DI KARTU CINTA</div>
+        <button class="heart-button" onclick="startExperience()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" stroke="none" width="100" height="100">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+            </svg>
+        </button>
+        <div style="margin-top: 20px; font-size: 1.2em;">Klik hati untuk melihat isi hati</div>
     </div>
 
-    <!-- Konten utama -->
-    <div id="main-content">
+    <!-- Konten Utama -->
+    <div class="content" id="content">
         <h1>Kartu Ucapan Cinta</h1>
         <div class="card">
             <p class="message">Untuk Istriku tercinta, <strong>Beti Wulandari</strong><br> 
@@ -148,33 +166,42 @@
             Ayah dan Ibu selalu ada di sini, memberikan cinta, dukungan, dan semangat untukmu. Semoga hidupmu penuh dengan kebahagiaan, kesuksesan, dan keberkahan. Kamu adalah harapan masa depan kami, anakku. Kami mencintaimu lebih dari apa yang bisa terucap dengan kata-kata.</p>
         </div>
 
+        <!-- Embed YouTube Video -->
         <div class="youtube-embed">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/zgSfpOOuI6Q?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="youtubeVideo" width="560" height="315" 
+                    src="https://www.youtube.com/embed/zgSfpOOuI6Q?autoplay=0&mute=1&playsinline=1" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen></iframe>
         </div>
+
+        <!-- Footer -->
+        <footer>
+            Aplikasi dibuat oleh <strong>B4GUS SOFTWARE HOUSE</strong><br>
+            <a href="https://instagram.com/bagus.candra" target="_blank">IG: @bagus.candra</a>
+        </footer>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        Aplikasi dibuat oleh <strong>B4GUS SOFTWARE HOUSE</strong><br>
-        <a href="https://instagram.com/bagus.candra" target="_blank">IG: @bagus.candra</a>
-    </footer>
-
     <script>
-        // Mengatur splash screen
-        window.addEventListener('load', function() {
-            const splash = document.getElementById('splash-screen');
-            const mainContent = document.getElementById('main-content');
+        // Fungsi untuk memulai pengalaman dengan menampilkan konten dan memutar video
+        function startExperience() {
+            // Hilangkan splash screen
+            const splash = document.getElementById("splash");
+            splash.style.transition = "opacity 0.5s ease";
+            splash.style.opacity = "0";
 
-            // Tampilkan splash screen selama 3 detik, lalu ke konten utama
             setTimeout(function() {
-                splash.style.opacity = '0';
-                setTimeout(function() {
-                    splash.style.display = 'none';
-                    mainContent.style.display = 'block';
-                }, 1000); // Delay untuk transisi fade out
-            }, 3000);
-        });
+                splash.style.display = "none";
+                const content = document.getElementById("content");
+                content.style.display = "block";
+                content.style.opacity = "1"; // Menampilkan konten dengan transisi
+            }, 500);
+
+            // Memutar video YouTube dengan suara
+            const youtubeVideo = document.getElementById("youtubeVideo");
+            youtubeVideo.src = "https://www.youtube.com/embed/zgSfpOOuI6Q?autoplay=1&mute=0&playsinline=1";
+        }
     </script>
 
 </body>
-  </html>
+</html>
